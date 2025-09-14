@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>萌芽水晶商城｜官方官网</title>
+  <meta name="description" content="萌芽水晶商城：天然水晶手串与定制服务，支持星座/生肖搭配。AI 智能客服小芽 7×24 在线为您解答。" />
+  <style>
+    :root{
+      --brand:#7E5BEF; --accent:#F2A6B3; --text:#2E2E2E; --bg:#FAFAFB; --line:#EAEAF0; --ok:#22B8A5;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",Inter,Arial,sans-serif}
+    a{color:var(--brand);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:1160px;margin:0 auto;padding:0 20px}
+
+    /* Header */
+    header{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--line)}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800}
+    .brand__logo{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--brand),#9C89FF)}
+    .nav__links{display:flex;gap:18px;align-items:center}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:12px;border:1px solid transparent;font-weight:600;cursor:pointer;transition:.2s ease}
+    .btn--primary{background:var(--brand);color:#fff}
+    .btn--primary:hover{filter:brightness(1.06)}
+    .btn--ghost{background:transparent;border-color:var(--line);color:var(--text)}
+    .btn--ghost:hover{box-shadow:0 8px 24px rgba(0,0,0,.06)}
+
+    /* Hero */
+    .hero{padding:56px 0;background:linear-gradient(180deg,#fff 0, rgba(255,255,255,.6) 50%, transparent 100%)}
+    .hero__grid{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center}
+    .h1{font-size:36px;line-height:44px;margin:0 0 12px}
+    .sub{font-size:16px;line-height:26px;margin:0 0 16px;color:#555}
+    .hero__cta{display:flex;gap:12px;flex-wrap:wrap}
+    .pill{display:inline-flex;gap:8px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:12px;color:#666}
+
+    /* Products */
+    .section{padding:20px 0 40px}
+    .section-title{font-size:22px;margin:0 0 14px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.06);overflow:hidden}
+    .card__media{height:180px;background:linear-gradient(135deg,#ffd2de,#fff)}
+    .card__media.am{background:linear-gradient(135deg,#d8d2ff,#fff)}
+    .card__media.yl{background:linear-gradient(135deg,#ffe9a4,#fff)}
+    .card__bd{padding:16px}
+    .price{font-weight:800;color:#333}
+
+    /* Features */
+    .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .feature{padding:18px}
+    .feature h3{margin:0 0 6px;font-size:16px}
+    .feature p{margin:0;color:#666;font-size:14px;line-height:22px}
+
+    /* Flow */
+    .flow-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+    .step{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;text-align:center;font-size:13px}
+
+    /* FAQ */
+    details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+    details+details{margin-top:10px}
+    summary{cursor:pointer;font-weight:600}
+
+    /* Footer */
+    footer{background:#fff;border-top:1px solid var(--line);padding:18px 0;color:#666}
+
+    /* Chat Floating Button */
+    .chat-fab{position:fixed;right:20px;bottom:20px;background:var(--brand);color:#fff;border:none;border-radius:999px;padding:12px 16px;box-shadow:0 12px 24px rgba(0,0,0,.18);cursor:pointer;font-weight:700}
+    .chat-fab:hover{filter:brightness(1.06)}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.45);padding:20px;z-index:100}
+    .modal.open{display:flex}
+    .modal__panel{width:min(92vw,420px);height:min(86vh,680px);background:#fff;border-radius:16px;border:1px solid var(--line);box-shadow:0 16px 40px rgba(0,0,0,.2);display:flex;flex-direction:column;overflow:hidden}
+    .modal__hd{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--line);font-weight:700}
+    .modal__bd{flex:1;min-height:0;position:relative}
+    .modal__ft{padding:10px 14px;border-top:1px solid var(--line);font-size:12px;color:#666;display:flex;justify-content:space-between;align-items:center}
+    .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);margin-right:6px;display:inline-block}
+    iframe{border:0;width:100%;height:100%;display:block}
+    .skeleton{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;color:#666;background:linear-gradient(90deg,#fff 0%,#fafafa 50%,#fff 100%);background-size:200% 100%;animation:shine 1.2s linear infinite}
+    @keyframes shine{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+    /* Responsive */
+    @media (max-width: 1024px){
+      .hero__grid{grid-template-columns:1fr}
+      .grid-3{grid-template-columns:repeat(2,1fr)}
+      .grid-4{grid-template-columns:repeat(2,1fr)}
+      .flow-grid{grid-template-columns:repeat(3,1fr)}
+    }
+    @media (max-width: 640px){
+      .nav__links{display:none}
+      .grid-3{grid-template-columns:1fr}
+      .flow-grid{grid-template-columns:repeat(2,1fr)}
+      .h1{font-size:28px;line-height:36px}
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="brand__logo" aria-hidden="true"></div>
+        <div>萌芽水晶商城 · Mengya</div>
+      </div>
+      <nav class="nav__links" aria-label="主导航">
+        <a href="#products">热销单品</a>
+        <a href="#features">我们的优势</a>
+        <a href="#flow">定制流程</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">联系我们</a>
+        <button class="btn btn--primary" id="openChat">AI 智能客服</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero__grid">
+      <div>
+        <h1 class="h1">天然水晶 · 个性定制 · <span style="color:var(--brand)">AI 小芽在线为你解答</span></h1>
+        <p class="sub">支持星座/生肖搭配、尺寸建议、保养知识与售后政策。遇到问题，随时呼叫小芽～</p>
+        <div class="hero__cta">
+          <button class="btn btn--primary" id="openChat2">立即咨询小芽</button>
+          <a class="btn btn--ghost" href="#flow">查看定制流程</a>
+        </div>
+        <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+          <span class="pill"># 天然矿石</span>
+          <span class="pill"># 个性化定制</span>
+          <span class="pill"># 星座/生肖搭配</span>
+          <span class="pill"># 7×24 在线客服</span>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card__bd">
+            <h3 style="margin:0 0 8px">热门搭配示意</h3>
+            <p style="margin:0 0 12px;color:#666">粉晶（爱情人缘） · 黄水晶（自信招财） · 虎眼石（勇气与行动力）</p>
+            <div class="grid-3">
+              <div class="card"><div class="card__media"></div><div class="card__bd"><div>粉晶 · 6mm</div><div class="price">¥199</div></div></div>
+              <div class="card"><div class="card__media yl"></div><div class="card__bd"><div>黄水晶 · 8mm</div><div class="price">¥239</div></div></div>
+              <div class="card"><div class="card__media am"></div><div class="card__bd"><div>虎眼石 · 10mm</div><div class="price">¥269</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section id="products" class="section">
+    <div class="container">
+      <h2 class="section-title">热销单品</h2>
+      <div class="grid-3">
+        <div class="card"><div class="card__media"></div><div class="card__bd"><h3 style="margin:0">粉晶甜心款</h3><p style="color:#666">寓意爱情与人缘，礼盒装可选</p><div class="price">¥199</div></div></div>
+        <div class="card"><div class="card__media yl"></div><div class="card__bd"><h3 style="margin:0">黄水晶自信款</h3><p style="color:#666">明亮自信，活力满满</p><div class="price">¥239</div></div></div>
+        <div class="card"><div class="card__media am"></div><div class="card__bd"><h3 style="margin:0">虎眼石守护款</h3><p style="color:#666">勇气与行动力，商务风格</p><div class="price">¥269</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="section">
+    <div class="container">
+      <h2 class="section-title">我们的优势</h2>
+      <div class="grid-4">
+        <div class="card feature"><h3>天然材质</h3><p>甄选矿源，支持鉴定，手工打磨，每一颗珠子都独一无二。</p></div>
+        <div class="card feature"><h3>个性化定制</h3><p>材质 × 尺寸 × 配饰自由搭配，打造你的心意之选。</p></div>
+        <div class="card feature"><h3>知识库问答</h3><p>品牌/产品/FAQ/售后/星座/生肖多维知识库，回答更专业。</p></div>
+        <div class="card feature"><h3>售后无忧</h3><p>七天无理由，一年质保（非人为），支持维修与换线。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flow -->
+  <section id="flow" class="section">
+    <div class="container">
+      <h2 class="section-title">定制流程</h2>
+      <div class="flow-grid">
+        <div class="step">1. 需求沟通</div>
+        <div class="step">2. 报价确认</div>
+        <div class="step">3. 支付定金</div>
+        <div class="step">4. 手工制作</div>
+        <div class="step">5. 交付尾款</div>
+        <div class="step">6. 发货售后</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="section">
+    <div class="container">
+      <h2 class="section-title">常见问题</h2>
+      <details><summary>如何选择手串尺寸？</summary><div style="padding-top:8px;color:#555">用软尺测量手腕周长，加 1–1.5cm 为合适尺寸；常见规格 XS(14cm)/S(16cm)/M(18cm)/L(20cm)。</div></details>
+      <details><summary>粉晶/虎眼石有什么寓意？</summary><div style="padding-top:8px;color:#555">按传统文化寓意：粉晶偏爱情与人缘；虎眼石代表勇气与行动力。仅作文化象征，不涉及医疗功效。</div></details>
+      <details><summary>发货与售后政策？</summary><div style="padding-top:8px;color:#555">下单后 48 小时内发货；满 200 元包邮；七天无理由，一年质保（非人为）。</div></details>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="container" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <div>© 2025 萌芽商务有限公司 · Mengya</div>
+      <div>微信：MengYa_Service · 客服：400-XXX-XXXX</div>
+    </div>
+  </footer>
+
+  <!-- Floating Chat Button -->
+  <button class="chat-fab" id="fab">💬 小芽在线</button>
+
+  <!-- Chat Modal -->
+  <div class="modal" id="chatModal" aria-hidden="true" role="dialog" aria-label="AI 智能客服小芽">
+    <div class="modal__panel">
+      <div class="modal__hd"><div><span class="dot"></span>AI 智能客服 · 小芽</div><button class="btn btn--ghost" id="closeModal">关闭</button></div>
+      <div class="modal__bd">
+        <div class="skeleton" id="skl">正在连接小芽…</div>
+        <iframe id="cozeFrame" title="萌芽水晶顾问小芽"
+          src="https://www.coze.cn/store/agent/7549900152732483630?bot_id=true"
+          loading="lazy" referrerpolicy="no-referrer"
+          allow="clipboard-write; microphone"></iframe>
+      </div>
+      <div class="modal__ft">
+        <span>💡 若加载较慢，可 <a id="openNew" target="_blank" rel="noopener">在新窗口打开</a></span>
+        <span style="color:#888">基于知识库回答 · 支持星座/生肖搭配</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById('chatModal');
+    const openers = [document.getElementById('openChat'), document.getElementById('openChat2'), document.getElementById('fab')].filter(Boolean);
+    const closer = document.getElementById('closeModal');
+    const frame = document.getElementById('cozeFrame');
+    const skl = document.getElementById('skl');
+    const openNew = document.getElementById('openNew');
+
+    // 设置“新窗口打开”链接
+    openNew.href = frame.getAttribute('src');
+
+    openers.forEach(btn=> btn.addEventListener('click', ()=>{
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+      document.body.style.overflow='hidden';
+    }));
+    closer.addEventListener('click', ()=>{
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+      document.body.style.overflow='';
+    });
+    modal.addEventListener('click', (e)=>{
+      if(e.target === modal){ closer.click(); }
+    });
+
+    // skeleton 隐藏
+    let loaded=false;
+    frame.addEventListener('load', ()=>{ loaded=true; skl.style.display='none'; });
+    setTimeout(()=>{ if(!loaded){ skl.textContent = '加载较慢，您也可以点击底部链接在新窗口打开体验～'; } }, 4500);
+  </script>
+</body>
+</html>
